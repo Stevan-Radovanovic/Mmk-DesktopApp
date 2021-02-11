@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Notification } = require('electron')
 
 let win;
 
@@ -7,7 +7,6 @@ function createWindow () {
     width: 600, 
     height: 600,
     backgroundColor: '#ffffff',
-    icon: `file://${__dirname}/dist/mmk-app/assets/logo.png`
   })
 
 
@@ -19,7 +18,15 @@ function createWindow () {
   })
 }
 
-app.on('ready', createWindow)
+function showNotification () {
+  const notification = {
+    title: 'Welcome to MMKlab App',
+    body: 'Made by Stevan Radovanović'
+  }
+  new Notification(notification).show()
+}
+
+app.whenReady().then(createWindow).then(showNotification);
 
 app.on('window-all-closed', function () {
 
