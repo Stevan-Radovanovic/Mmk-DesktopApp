@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Notification } = require('electron')
+const { app, BrowserWindow, Notification, globalShortcut } = require('electron')
 
 let win;
 
@@ -26,7 +26,40 @@ function showNotification () {
   new Notification(notification).show()
 }
 
-app.whenReady().then(createWindow).then(showNotification);
+function registerGlobalShortcuts () {
+  globalShortcut.register('Alt+x', closeApp);
+  globalShortcut.register('Alt+m', minimizeApp);
+  globalShortcut.register('Alt+l', maximizeApp);
+}
+
+function closeApp () {
+  win.close();
+  const notification = {
+    title: 'MMKlab App Notify',
+    body: 'App Closed'
+  }
+  new Notification(notification).show();
+}
+
+function minimizeApp () {
+  win.minimize();
+  const notification = {
+    title: 'MMKlab App Notify',
+    body: 'App Minimized'
+  }
+  new Notification(notification).show()
+}
+
+function maximizeApp () {
+  win.maximize();
+  const notification = {
+    title: 'Welcome to MMKlab App',
+    body: 'App Maximized'
+  }
+  new Notification(notification).show()
+}
+
+app.whenReady().then(createWindow).then(showNotification).then(registerGlobalShortcuts);
 
 app.on('window-all-closed', function () {
 
