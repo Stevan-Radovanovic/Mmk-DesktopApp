@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Notification, globalShortcut } = require('electron')
+const { app, BrowserWindow, Notification, globalShortcut, nativeTheme } = require('electron')
 
 let win;
 
@@ -6,7 +6,7 @@ function createWindow () {
   win = new BrowserWindow({
     width: 600, 
     height: 600,
-    backgroundColor: '#ffffff',
+    //backgroundColor: '#ffffff',
   })
 
 
@@ -29,7 +29,7 @@ function showNotification () {
 function registerGlobalShortcuts () {
   globalShortcut.register('Alt+x', closeApp);
   globalShortcut.register('Alt+m', minimizeApp);
-  globalShortcut.register('Alt+l', maximizeApp);
+  globalShortcut.register('Alt+t', changeTheme);
 }
 
 function closeApp () {
@@ -50,16 +50,27 @@ function minimizeApp () {
   new Notification(notification).show()
 }
 
-function maximizeApp () {
-  win.maximize();
+function changeTheme() {
+  if(nativeTheme.shouldUseDarkColors) {
+    nativeTheme.themeSource = 'light';
+  } else {
+    nativeTheme.themeSource = 'dark';
+  }
+
+  console.log(nativeTheme.themeSource)
   const notification = {
-    title: 'Welcome to MMKlab App',
-    body: 'App Maximized'
+    title: 'MMKlab App Notify',
+    body: 'App Theme Changed'
   }
   new Notification(notification).show()
 }
 
-app.whenReady().then(createWindow).then(showNotification).then(registerGlobalShortcuts);
+function initialSetup() {
+  showNotification();
+  registerGlobalShortcuts();
+}
+
+app.whenReady().then(createWindow).then(initialSetup);
 
 app.on('window-all-closed', function () {
 
