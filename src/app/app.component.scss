@@ -3,20 +3,4 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-
-    .button-wrap {
-        margin-top: 20px;
-        display: flex;
-
-        .continue-button {
-            margin-right: 4px;
-        }
-
-        button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    }
 }

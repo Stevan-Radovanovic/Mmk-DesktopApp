@@ -9,7 +9,6 @@ function createWindow () {
     //backgroundColor: '#ffffff',
   })
 
-
   win.setMenuBarVisibility(false);
   win.loadURL(`file://${__dirname}/dist/mmk-app/index.html`)
 
@@ -57,7 +56,6 @@ function changeTheme() {
     nativeTheme.themeSource = 'dark';
   }
 
-  console.log(nativeTheme.themeSource)
   const notification = {
     title: 'MMKlab App Notify',
     body: 'App Theme Changed'

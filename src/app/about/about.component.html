@@ -1,0 +1,7 @@
+<button mat-fab color="primary" [routerLink]="['/intro']" *ngIf="!showLoader"
+matTooltip="Back" matTooltipPosition="right" class="back-button">
+  <i class="fas fa-arrow-left fa-2x"></i>
+</button>
+<div class="loader" *ngIf="showLoader">
+    <mat-spinner color="primary"></mat-spinner>
+</div>
